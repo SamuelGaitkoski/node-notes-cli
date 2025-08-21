@@ -34,7 +34,7 @@ function listNotes() {
   }
 
   console.log("📝 Your notes:");
-  notes.forEach(n => n.console.log(`- ${n.text}`));
+  notes.forEach(n => console.log(`- ${n.text}`));
 }
 
 // Remove a note (by text)
