@@ -1,12 +1,9 @@
 {
   "name": "notes-cli",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A simple Notes CLI built with Node.js core modules",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+    "start": "node app.js"
+  }
 }
