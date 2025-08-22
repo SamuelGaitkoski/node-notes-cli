@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 const fs = require("fs");
 const path = require("path");
 
@@ -20,7 +22,12 @@ function saveNotes(notes) {
 // Add a note
 function addNote(note) {
   const notes = loadNotes();
-  notes.push({ id: Date.now(), text: note });
+  const newNote = {
+    id: uuidv4(),
+    text,
+    date: new Date().toISOString()
+  };
+  notes.push(newNote);
   saveNotes(notes);
   console.log("✅ Note added:", note);
 }
