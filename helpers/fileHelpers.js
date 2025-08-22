@@ -10,7 +10,7 @@ function getFilePath(filename = "notes.json") {
 }
 
 // Load notes from file (sorted by date)
-export function loadNotes() {
+export function loadNotes(filename) {
   const filePath = getFilePath(filename);
   try {
     if (!fs.existsSync(filePath)) {
@@ -30,7 +30,7 @@ export function loadNotes() {
 }
 
 // Save notes to file
-export function saveNotes(notes) {
+export function saveNotes(notes, filename) {
   const filePath = getFilePath(filename);
   fs.writeFileSync(filePath, JSON.stringify(notes, null, 2));
 }
