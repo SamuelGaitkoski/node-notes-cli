@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { format } from "date-fns";
+import ora from "ora";
 import chalk from "chalk";
 import figures from "figures";
 import boxen from "boxen";
@@ -9,7 +10,11 @@ import { loadNotes, saveNotes } from "./helpers/fileHelpers.js";
 const headerStyle = { padding: 1, borderStyle: "round", borderColor: "green" };
 
 export function listNotes() {
+  const spinner = ora({ spinner: "dots" }).start();
+
   const notes = loadNotes();
+
+  spinner.stop();
 
   if (notes.length === 0) {
     return console.log(chalk.yellow(figures.warning, "No notes yet."));
@@ -27,10 +32,14 @@ export function listNotes() {
 }
 
 export function findNotesByText(query) {
+  const spinner = ora({ spinner: "dots" }).start();
+
   const notes = loadNotes();
   const results = notes.filter(note =>
     note.text.toLowerCase().includes(query.toLowerCase())
   );
+
+  spinner.stop();
 
   if (results.length === 0) {
     console.log(chalk.yellow(figures.warning, "No matching notes."));
@@ -49,8 +58,12 @@ export function findNotesByText(query) {
 }
 
 export function findNoteById(id) {
+  const spinner = ora({ spinner: "dots" }).start();
+
   const notes = loadNotes();
   const note = notes.find(n => n.id === id);
+
+  spinner.stop();
 
   if (!note) {
     console.log(chalk.red(figures.cross, "No note found with that ID."));
@@ -63,6 +76,8 @@ export function findNoteById(id) {
 }
 
 export function addNote(text) {
+  const spinner = ora({ spinner: "dots" }).start();
+
   const notes = loadNotes();
   const newNote = {
     id: uuidv4(),
@@ -71,29 +86,41 @@ export function addNote(text) {
   };
   notes.push(newNote);
   saveNotes(notes);
+
+  spinner.stop();
   console.log(chalk.green(figures.tick, "Note added:"), chalk.bold(text));
 }
 
 export function removeNoteById(id) {
+  const spinner = ora({ spinner: "dots" }).start();
+
   let notes = loadNotes();
   const noteToRemove = notes.find(n => n.id === id);
   if (!noteToRemove) {
+    spinner.stop();
     return console.log(chalk.red(figures.cross, "Note not found!"));
   }
 
   notes = notes.filter(n => n.id !== id);
   saveNotes(notes);
+
+  spinner.stop();
   console.log(chalk.red(figures.cross, "Removed:"), chalk.bold(noteToRemove.text));
 }
 
 export function removeNoteByText(text) {
+  const spinner = ora({ spinner: "dots" }).start();
+
   let notes = loadNotes();
   const noteToRemove = notes.find(n => n.text === text);
   if (!noteToRemove) {
+    spinner.stop();
     return console.log(chalk.red(figures.cross, "Note not found!"));
   }
 
   notes = notes.filter(n => n.text !== text);
   saveNotes(notes);
+
+  spinner.stop();
   console.log(chalk.red(figures.cross, "Removed:"), chalk.bold(noteToRemove.text));
 }
