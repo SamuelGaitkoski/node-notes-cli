@@ -6,11 +6,17 @@ const filePath = path.join(__dirname, "data", "notes.json");
 
 // Utility: load notes from file
 function loadNotes() {
-  if (!fs.existsSync(filePath)) {
+  try {
+    const dataBuffer = fs.readFileSync(filePath, "utf-8");
+
+    if (!dataBuffer) {
+      return [];
+    }
+
+    return JSON.parse(dataBuffer);
+  } catch (err) {
     return [];
   }
-  const data = fs.readFileSync(filePath, "utf-8");
-  return JSON.parse(data);
 }
 
 // Utility: save notes to file
