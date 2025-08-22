@@ -68,4 +68,4 @@ function removeNoteByText(note) {
   console.log("❌ Removed:", note);
 }
 
-module.exports = { listNotes, findNotesByText, findNoteById, addNote, removeNoteByText };
+module.exports = { listNotes, findNotesByText, findNoteById, addNote, removeNoteById, removeNoteByText };

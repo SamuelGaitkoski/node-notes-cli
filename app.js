@@ -42,6 +42,16 @@ yargs(hideBin(process.argv))
     }
   )
   .command(
+    "removeById <id>",
+    "Remove a note by ID",
+    (yargs) => {
+      yargs.positional("id", { describe: "ID of the note to remove", type: "string" });
+    },
+    (argv) => {
+      notes.removeNoteById(argv.id);
+    }
+  )
+  .command(
     "remove <text>",
     "Remove a note by text",
     (yargs) => {
