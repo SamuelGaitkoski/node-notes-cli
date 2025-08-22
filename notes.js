@@ -29,7 +29,7 @@ function addNote(note) {
   const notes = loadNotes();
   const newNote = {
     id: uuidv4(),
-    text,
+    text: note,
     date: new Date().toISOString()
   };
   notes.push(newNote);
