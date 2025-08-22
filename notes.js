@@ -1,15 +1,22 @@
-const { v4: uuidv4 } = require("uuid");
-const { loadNotes, saveNotes } = require("./helpers/fileHelpers");
+import { v4 as uuidv4 } from "uuid";
+import chalk from "chalk";
+import figures from "figures";
+import boxen from "boxen";
+import { loadNotes, saveNotes } from "./helpers/fileHelpers.js";
 
 function listNotes() {
   const notes = loadNotes();
 
   if (notes.length === 0) {
-    return console.log("No notes yet.");
+    return console.log(chalk.yellow(figures.warning, "No notes yet."));
   }
 
-  console.log("📝 Your notes:");
-  notes.forEach((n) => console.log(`- [${n.id}] ${n.text}`));
+  console.log(
+    boxen(chalk.blue.bold("📝 Your Notes"), { padding: 1, borderColor: "green", borderStyle: "round" })
+  );
+  notes.forEach((n) => {
+    console.log(`${chalk.green(figures.pointer)} [${chalk.cyan(n.id)}] ${chalk.white(n.text)} (${chalk.gray(new Date(n.date).toLocaleString())})`);
+  });
 }
 
 function findNotesByText(query) {

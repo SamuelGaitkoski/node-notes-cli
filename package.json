@@ -2,6 +2,7 @@
   "name": "notes-cli",
   "version": "1.0.0",
   "description": "A simple Notes CLI built with Node.js core modules",
+  "type": "module",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"

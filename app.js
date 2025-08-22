@@ -1,6 +1,6 @@
-const yargs = require("yargs");
-const { hideBin } = require("yargs/helpers");
-const notes = require('./notes');
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
+import * as notes from "./notes.js";
 
 yargs(hideBin(process.argv))
   .command(
