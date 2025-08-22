@@ -1,7 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const { loadNotes, saveNotes } = require("./helpers/fileHelpers");
 
-// List notes
 function listNotes() {
   const notes = loadNotes();
 
@@ -13,7 +12,6 @@ function listNotes() {
   notes.forEach((n) => console.log(`- [${n.id}] ${n.text}`));
 }
 
-// Find notes by text
 function findNotesByText(query) {
   const notes = loadNotes();
 
@@ -22,13 +20,11 @@ function findNotesByText(query) {
   );
 }
 
-// Find note by ID
 function findNoteById(id) {
   const notes = loadNotes();
   return notes.find(n => n.id === id);
 }
 
-// Add a note
 function addNote(note) {
   const notes = loadNotes();
   const newNote = {
@@ -41,7 +37,18 @@ function addNote(note) {
   console.log("✅ Note added:", note);
 }
 
-// Remove a note by text
+function removeNoteById(id) {
+  let notes = loadNotes();
+  const noteToRemove = notes.find(n => n.id === id);
+  if (!noteToRemove) {
+    return console.log("❌ Note not found!");
+  }
+
+  notes = notes.filter(n => n.id !== id);
+  saveNotes(notes);
+  console.log("❌ Removed:", noteToRemove.text);
+}
+
 function removeNoteByText(note) {
   let notes = loadNotes();
   const filtered = notes.filter(n => n.text !== note);
