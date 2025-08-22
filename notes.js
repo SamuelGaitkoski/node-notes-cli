@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import chalk from "chalk";
 import figures from "figures";
 import boxen from "boxen";
+import Table from "cli-table3";
 import { loadNotes, saveNotes } from "./helpers/fileHelpers.js";
 
 export function listNotes() {
@@ -11,12 +12,14 @@ export function listNotes() {
     return console.log(chalk.yellow(figures.warning, "No notes yet."));
   }
 
-  console.log(
-    boxen(chalk.blue.bold("📝 Your Notes"), { padding: 1, borderColor: "green", borderStyle: "round" })
-  );
-  notes.forEach((n) => {
-    console.log(`${chalk.green(figures.pointer)} [${chalk.cyan(n.id)}] ${chalk.white(n.text)} (${chalk.gray(new Date(n.date).toLocaleString())})`);
+  const table = new Table({
+    head: ["ID", "Text", "Date"],
+    colWidths: [38, 30, 25]
   });
+
+  notes.forEach(n => table.push([n.id, n.text, n.date]));
+
+  console.log(table.toString());
 }
 
 export function findNotesByText(query) {
