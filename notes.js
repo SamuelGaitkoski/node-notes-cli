@@ -16,7 +16,7 @@ function listNotes() {
 // Find notes by text
 function findNotesByText(query) {
   const notes = loadNotes();
-  
+
   return notes.filter(note =>
     note.text.toLowerCase().includes(query.toLowerCase())
   );
@@ -34,7 +34,6 @@ function addNote(note) {
   saveNotes(notes);
   console.log("✅ Note added:", note);
 }
-
 
 // Remove a note (by text)
 function removeNote(note) {
