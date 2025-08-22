@@ -45,7 +45,7 @@ yargs(hideBin(process.argv))
       yargs.positional("text", { describe: "Text of the note to remove", type: "string" });
     },
     (argv) => {
-      notes.removeNote(argv.text);
+      notes.removeNoteByText(argv.text);
     }
   )
   .help()

@@ -22,7 +22,7 @@ function findNotesByText(query) {
   );
 }
 
-// Find note by id
+// Find note by ID
 function findNoteById(id) {
   const notes = loadNotes();
   return notes.find(n => n.id === id);
@@ -42,11 +42,11 @@ function addNote(note) {
 }
 
 // Remove a note by text
-function removeNote(note) {
+function removeNoteByText(note) {
   let notes = loadNotes();
   const filtered = notes.filter(n => n.text !== note);
   saveNotes(filtered);
   console.log("❌ Removed:", note);
 }
 
-module.exports = { listNotes, addNote, removeNote };
+module.exports = { listNotes, findNotesByText, findNoteById, addNote, removeNoteByText };
