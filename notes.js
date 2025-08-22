@@ -10,7 +10,7 @@ function listNotes() {
   }
 
   console.log("📝 Your notes:");
-  notes.forEach(n => console.log(`- ${n.text}`));
+  notes.forEach((n) => console.log(`- [${n.id}] ${n.text}`));
 }
 
 // Find notes by text
