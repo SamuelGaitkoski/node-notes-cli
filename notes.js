@@ -5,6 +5,8 @@ import boxen from "boxen";
 import Table from "cli-table3";
 import { loadNotes, saveNotes } from "./helpers/fileHelpers.js";
 
+const headerStyle = { padding: 1, borderStyle: "round", borderColor: "green" };
+
 export function listNotes() {
   const notes = loadNotes();
 
@@ -13,13 +15,14 @@ export function listNotes() {
   }
 
   const table = new Table({
-    head: ["ID", "Text", "Date"],
-    colWidths: [38, 30, 25]
+    head: ["ID", "Text", "Date"].map(h => chalk.blue.bold(h)),
+    colWidths: [38, 30, 25],
+    style: { head: [], border: [] }
   });
 
   notes.forEach(n => table.push([n.id, n.text, n.date]));
 
-  console.log(table.toString());
+  console.log(boxen(table.toString(), { ...headerStyle, title: chalk.green("All Notes") }));
 }
 
 export function findNotesByText(query) {
@@ -29,11 +32,19 @@ export function findNotesByText(query) {
   );
 
   if (results.length === 0) {
-    console.log("No matching notes.");
-  } else {
-    console.log("Found notes:");
-    results.forEach(n => console.log(`- [${n.id}] ${n.text}`));
+    console.log(chalk.yellow(figures.warning, "No matching notes."));
+    return;
   }
+
+  const table = new Table({
+    head: ["ID", "Text", "Date"].map(h => chalk.cyan.bold(h)),
+    colWidths: [38, 30, 25],
+    style: { head: [], border: [] }
+  });
+
+  results.forEach(n => table.push([n.id, n.text, n.date]));
+
+  console.log(boxen(table.toString(), { ...headerStyle, title: chalk.green(`Search results for "${query}"`) }));
 }
 
 export function findNoteById(id) {
@@ -41,9 +52,12 @@ export function findNoteById(id) {
   const note = notes.find(n => n.id === id);
 
   if (!note) {
-    console.log("No note found with that ID.");
+    console.log(chalk.red(figures.cross, "No note found with that ID."));
   } else {
-    console.log(`📝 [${note.id}] ${note.text}`);
+    console.log(boxen(
+      `${chalk.green("ID:")} ${note.id}\n${chalk.green("Text:")} ${note.text}\n${chalk.green("Date:")} ${note.date}`,
+      { ...headerStyle, title: chalk.green("Note Found") }
+    ));
   }
 }
 
@@ -56,24 +70,29 @@ export function addNote(note) {
   };
   notes.push(newNote);
   saveNotes(notes);
-  console.log("✅ Note added:", note);
+  console.log(chalk.green(figures.tick, "Note added:"), chalk.bold(text));
 }
 
 export function removeNoteById(id) {
   let notes = loadNotes();
   const noteToRemove = notes.find(n => n.id === id);
   if (!noteToRemove) {
-    return console.log("❌ Note not found!");
+    return console.log(chalk.red(figures.cross, "Note not found!"));
   }
 
   notes = notes.filter(n => n.id !== id);
   saveNotes(notes);
-  console.log("❌ Removed:", noteToRemove.text);
+  console.log(chalk.red(figures.cross, "Removed:"), chalk.bold(noteToRemove.text));
 }
 
-export function removeNoteByText(note) {
+export function removeNoteByText(text) {
   let notes = loadNotes();
-  const filtered = notes.filter(n => n.text !== note);
-  saveNotes(filtered);
-  console.log("❌ Removed:", note);
+  const noteToRemove = notes.find(n => n.text === text);
+  if (!noteToRemove) {
+    return console.log(chalk.red(figures.cross, "Note not found!"));
+  }
+
+  notes = notes.filter(n => n.text !== text);
+  saveNotes(notes);
+  console.log(chalk.red(figures.cross, "Removed:"), chalk.bold(noteToRemove.text));
 }
