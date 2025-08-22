@@ -1,7 +1,6 @@
-import { v4 as uuidv4 } from "uuid";
-
 const fs = require("fs");
 const path = require("path");
+const { v4: uuidv4 } = require("uuid");
 
 const filePath = path.join(__dirname, "data", "notes.json");
 
