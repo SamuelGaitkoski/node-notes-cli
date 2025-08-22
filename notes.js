@@ -24,6 +24,18 @@ function saveNotes(notes) {
   fs.writeFileSync(filePath, JSON.stringify(notes, null, 2));
 }
 
+// List notes
+function listNotes() {
+  const notes = loadNotes();
+
+  if (notes.length === 0) {
+    return console.log("No notes yet.");
+  }
+
+  console.log("📝 Your notes:");
+  notes.forEach(n => console.log(`- ${n.text}`));
+}
+
 // Add a note
 function addNote(note) {
   const notes = loadNotes();
@@ -37,17 +49,6 @@ function addNote(note) {
   console.log("✅ Note added:", note);
 }
 
-// List notes
-function listNotes() {
-  const notes = loadNotes();
-
-  if (notes.length === 0) {
-    return console.log("No notes yet.");
-  }
-
-  console.log("📝 Your notes:");
-  notes.forEach(n => console.log(`- ${n.text}`));
-}
 
 // Remove a note (by text)
 function removeNote(note) {
@@ -57,4 +58,4 @@ function removeNote(note) {
   console.log("❌ Removed:", note);
 }
 
-module.exports = { addNote, listNotes, removeNote };
+module.exports = { listNotes, addNote, removeNote };
