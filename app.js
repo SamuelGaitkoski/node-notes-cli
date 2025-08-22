@@ -18,14 +18,17 @@ yargs(hideBin(process.argv))
       yargs.positional("query", { describe: "Text to search", type: "string" });
     },
     (argv) => {
-      const results = notes.findNotesByText(argv.query);
-
-      if (results.length === 0) {
-        return console.log("No matching notes.");
-      }
-      
-      console.log("Found notes:");
-      results.forEach((n) => console.log(`- ${n.text}`));
+      notes.findNotesByText(argv.query);
+    }
+  )
+  .command(
+    "findById <id>",
+    "Find a note by ID",
+    (yargs) => {
+      yargs.positional("id", { describe: "ID of the note to find", type: "string" });
+    },
+    (argv) => {
+      notes.findNoteById(argv.id);
     }
   )
   .command(
