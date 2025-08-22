@@ -1,6 +1,6 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { NotesService } from "./services/notesService";
+import NotesService from "./services/notesService.js";
 
 const notesService = new NotesService();
 
