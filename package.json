@@ -5,5 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
+  },
+  "dependencies": {
+    "uuid": "^11.1.0"
   }
 }
