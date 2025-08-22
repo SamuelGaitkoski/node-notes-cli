@@ -8,12 +8,9 @@ const filePath = path.join(__dirname, "data", "notes.json");
 function loadNotes() {
   try {
     const dataBuffer = fs.readFileSync(filePath, "utf-8");
+    const notes = dataBuffer ? JSON.parse(dataBuffer) : [];
 
-    if (!dataBuffer) {
-      return [];
-    }
-
-    return JSON.parse(dataBuffer);
+    return notes.sort((a, b) => new Date(b.date) - new Date(a.date));
   } catch (err) {
     return [];
   }
