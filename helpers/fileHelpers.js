@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const filePath = path.join(__dirname, "data", "notes.json");
+const filePath = path.join(__dirname, "..", "data", "notes.json");
 
 // Load notes from file (sorted by date)
 function loadNotes() {
