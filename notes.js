@@ -14,15 +14,27 @@ function listNotes() {
 
 function findNotesByText(query) {
   const notes = loadNotes();
-
-  return notes.filter(note =>
+  const results = notes.filter(note =>
     note.text.toLowerCase().includes(query.toLowerCase())
   );
+
+  if (results.length === 0) {
+    console.log("No matching notes.");
+  } else {
+    console.log("Found notes:");
+    results.forEach(n => console.log(`- [${n.id}] ${n.text}`));
+  }
 }
 
 function findNoteById(id) {
   const notes = loadNotes();
-  return notes.find(n => n.id === id);
+  const note = notes.find(n => n.id === id);
+
+  if (!note) {
+    console.log("No note found with that ID.");
+  } else {
+    console.log(`📝 [${note.id}] ${note.text}`);
+  }
 }
 
 function addNote(note) {
