@@ -9,7 +9,7 @@ yargs(hideBin(process.argv))
     "list",
     "List all notes",
     () => {},
-    () => notesService.listNotes()
+    () => notesService.list()
   )
   .command(
     "search <query>",
@@ -17,7 +17,7 @@ yargs(hideBin(process.argv))
     (yargs) => {
       yargs.positional("query", { describe: "Text to search", type: "string" });
     },
-    (argv) => notesService.findNotesByText(argv.query)
+    (argv) => notesService.findByText(argv.query)
   )
   .command(
     "findById <id>",
@@ -25,7 +25,7 @@ yargs(hideBin(process.argv))
     (yargs) => {
       yargs.positional("id", { describe: "ID of the note to find", type: "string" });
     },
-    (argv) => notesService.findNoteById(argv.id)
+    (argv) => notesService.findById(argv.id)
   )
   .command(
     "add <text>",
@@ -33,7 +33,7 @@ yargs(hideBin(process.argv))
     (yargs) => {
       yargs.positional("text", { describe: "Note content", type: "string" });
     },
-    (argv) => notesService.addNote(argv.text)
+    (argv) => notesService.add(argv.text)
   )
   .command(
     "removeById <id>",
@@ -41,7 +41,7 @@ yargs(hideBin(process.argv))
     (yargs) => {
       yargs.positional("id", { describe: "ID of the note to remove", type: "string" });
     },
-    (argv) => notesService.removeNoteById(argv.id)
+    (argv) => notesService.removeById(argv.id)
   )
   .command(
     "remove <text>",
@@ -49,7 +49,7 @@ yargs(hideBin(process.argv))
     (yargs) => {
       yargs.positional("text", { describe: "Text of the note to remove", type: "string" });
     },
-    (argv) => notesService.removeNoteByText(argv.text)
+    (argv) => notesService.removeByText(argv.text)
   )
   .help()
   .parse();
