@@ -4,7 +4,7 @@ import path from "path";
 const filePath = path.join(__dirname, "..", "data", "notes.json");
 
 // Load notes from file (sorted by date)
-function loadNotes() {
+export function loadNotes() {
   try {
     if (!fs.existsSync(filePath)) {
       return [];
@@ -24,8 +24,6 @@ function loadNotes() {
 }
 
 // Save notes to file
-function saveNotes(notes) {
+export function saveNotes(notes) {
   fs.writeFileSync(filePath, JSON.stringify(notes, null, 2));
 }
-
-module.exports = { loadNotes, saveNotes };
