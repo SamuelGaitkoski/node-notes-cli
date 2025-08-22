@@ -5,7 +5,7 @@ import figures from "figures";
 import { loadNotes, saveNotes } from "../helpers/fileHelpers.js";
 import * as ui from "../ui.js";
 
-export class NotesService {
+export default class NotesService {
   constructor(fileName = "notes.json") {
     this.fileName = fileName;
   }
