@@ -1,25 +1,5 @@
-const fs = require("fs");
-const path = require("path");
 const { v4: uuidv4 } = require("uuid");
-
-const filePath = path.join(__dirname, "data", "notes.json");
-
-// Utility: load notes from file
-function loadNotes() {
-  try {
-    const dataBuffer = fs.readFileSync(filePath, "utf-8");
-    const notes = dataBuffer ? JSON.parse(dataBuffer) : [];
-
-    return notes.sort((a, b) => new Date(b.date) - new Date(a.date));
-  } catch (err) {
-    return [];
-  }
-}
-
-// Utility: save notes to file
-function saveNotes(notes) {
-  fs.writeFileSync(filePath, JSON.stringify(notes, null, 2));
-}
+const { loadNotes, saveNotes } = require("./helpers/fileHelpers");
 
 // List notes
 function listNotes() {
