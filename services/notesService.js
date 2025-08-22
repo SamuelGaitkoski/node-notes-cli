@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { format } from "date-fns";
 import chalk from "chalk";
 import figures from "figures";
-import { loadNotes, saveNotes } from "./helpers/fileHelpers.js";
+import { loadNotes, saveNotes } from "../helpers/fileHelpers.js";
 import * as ui from "./ui.js";
 
 export class NotesService {
