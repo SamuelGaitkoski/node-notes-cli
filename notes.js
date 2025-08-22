@@ -4,7 +4,7 @@ import figures from "figures";
 import boxen from "boxen";
 import { loadNotes, saveNotes } from "./helpers/fileHelpers.js";
 
-function listNotes() {
+export function listNotes() {
   const notes = loadNotes();
 
   if (notes.length === 0) {
@@ -19,7 +19,7 @@ function listNotes() {
   });
 }
 
-function findNotesByText(query) {
+export function findNotesByText(query) {
   const notes = loadNotes();
   const results = notes.filter(note =>
     note.text.toLowerCase().includes(query.toLowerCase())
@@ -33,7 +33,7 @@ function findNotesByText(query) {
   }
 }
 
-function findNoteById(id) {
+export function findNoteById(id) {
   const notes = loadNotes();
   const note = notes.find(n => n.id === id);
 
@@ -44,7 +44,7 @@ function findNoteById(id) {
   }
 }
 
-function addNote(note) {
+export function addNote(note) {
   const notes = loadNotes();
   const newNote = {
     id: uuidv4(),
@@ -56,7 +56,7 @@ function addNote(note) {
   console.log("✅ Note added:", note);
 }
 
-function removeNoteById(id) {
+export function removeNoteById(id) {
   let notes = loadNotes();
   const noteToRemove = notes.find(n => n.id === id);
   if (!noteToRemove) {
@@ -68,11 +68,9 @@ function removeNoteById(id) {
   console.log("❌ Removed:", noteToRemove.text);
 }
 
-function removeNoteByText(note) {
+export function removeNoteByText(note) {
   let notes = loadNotes();
   const filtered = notes.filter(n => n.text !== note);
   saveNotes(filtered);
   console.log("❌ Removed:", note);
 }
-
-module.exports = { listNotes, findNotesByText, findNoteById, addNote, removeNoteById, removeNoteByText };
