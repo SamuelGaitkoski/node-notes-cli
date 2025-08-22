@@ -61,11 +61,11 @@ export function findNoteById(id) {
   }
 }
 
-export function addNote(note) {
+export function addNote(text) {
   const notes = loadNotes();
   const newNote = {
     id: uuidv4(),
-    text: note,
+    text: text,
     date: new Date().toISOString()
   };
   notes.push(newNote);
