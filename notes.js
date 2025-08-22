@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { format } from "date-fns";
 import chalk from "chalk";
 import figures from "figures";
 import boxen from "boxen";
@@ -66,7 +67,7 @@ export function addNote(text) {
   const newNote = {
     id: uuidv4(),
     text: text,
-    date: new Date().toISOString()
+    date: format(new Date(), "dd/MM/yyyy HH:mm:ss")
   };
   notes.push(newNote);
   saveNotes(notes);
