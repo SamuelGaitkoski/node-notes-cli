@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
 import { format } from "date-fns";
+import chalk from "chalk";
+import figures from "figures";
 import { loadNotes, saveNotes } from "./helpers/fileHelpers.js";
 import * as ui from "./ui.js";
-
-const headerStyle = { padding: 1, borderStyle: "round", borderColor: "green" };
 
 export class NotesService {
   constructor(fileName = "notes.json") {
@@ -58,7 +58,6 @@ export class NotesService {
       const notes = this.getAllNotes();
       const noteToRemove = notes.find(n => n.id === id);
       if (!noteToRemove) {
-        spinner.stop();
         return console.log(chalk.red(figures.cross, "Note not found!"));
       }
 
@@ -73,7 +72,6 @@ export class NotesService {
       let notes = this.getAllNotes();
       const noteToRemove = notes.find(n => n.text === text);
       if (!noteToRemove) {
-        spinner.stop();
         return console.log(chalk.red(figures.cross, "Note not found!"));
       }
 
