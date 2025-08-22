@@ -22,6 +22,12 @@ function findNotesByText(query) {
   );
 }
 
+// Find note by id
+function findNoteById(id) {
+  const notes = loadNotes();
+  return notes.find(n => n.id === id);
+}
+
 // Add a note
 function addNote(note) {
   const notes = loadNotes();
@@ -35,7 +41,7 @@ function addNote(note) {
   console.log("✅ Note added:", note);
 }
 
-// Remove a note (by text)
+// Remove a note by text
 function removeNote(note) {
   let notes = loadNotes();
   const filtered = notes.filter(n => n.text !== note);
