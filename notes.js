@@ -13,6 +13,15 @@ function listNotes() {
   notes.forEach(n => console.log(`- ${n.text}`));
 }
 
+// Find notes by text
+function findNotesByText(query) {
+  const notes = loadNotes();
+  
+  return notes.filter(note =>
+    note.text.toLowerCase().includes(query.toLowerCase())
+  );
+}
+
 // Add a note
 function addNote(note) {
   const notes = loadNotes();
