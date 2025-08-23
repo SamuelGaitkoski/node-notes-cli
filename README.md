@@ -24,7 +24,7 @@ This project applies several software design principles:
 - **Single Responsibility Principle (SOLID):**  
   Each file has one clear responsibility (`app.js` = CLI, `notesService.js` = note logic, `fileHelpers.js` = persistence).
 
-- **Dependency Inversion (SOLID):**  
+- **Dependency Inversion Principle (SOLID):**  
   `fileHelpers.js` accepts a filename parameter, making the storage mechanism flexible and not hardcoded.
 
 - **Module Pattern:**  
