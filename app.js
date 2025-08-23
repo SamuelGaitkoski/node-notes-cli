@@ -1,15 +1,23 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import NotesService from "./services/NotesService.js";
+import { FileStorage } from "./services/FileStorage.js";
 
-const notesService = new NotesService();
+const storage = new FileStorage("notes.json");
+
+// const storage = new MemoryStorage();
+
+// const dbClient = new MockDbClient();
+// const storage = new DatabaseStorage(dbClient);
+
+const notesService = new NotesService(storage);
 
 yargs(hideBin(process.argv))
   .command(
     "list",
     "List all notes",
     () => {},
-    () => notesService.list()
+    async () => await notesService.list()
   )
   .command(
     "search <query>",
@@ -17,7 +25,7 @@ yargs(hideBin(process.argv))
     (yargs) => {
       yargs.positional("query", { describe: "Text to search", type: "string" });
     },
-    (argv) => notesService.findByText(argv.query)
+    async (argv) => await notesService.findByText(argv.query)
   )
   .command(
     "findById <id>",
@@ -25,7 +33,7 @@ yargs(hideBin(process.argv))
     (yargs) => {
       yargs.positional("id", { describe: "ID of the note to find", type: "string" });
     },
-    (argv) => notesService.findById(argv.id)
+    async (argv) => await notesService.findById(argv.id)
   )
   .command(
     "add <text>",
@@ -33,7 +41,7 @@ yargs(hideBin(process.argv))
     (yargs) => {
       yargs.positional("text", { describe: "Note content", type: "string" });
     },
-    (argv) => notesService.add(argv.text)
+    async (argv) => await notesService.add(argv.text)
   )
   .command(
     "removeById <id>",
@@ -41,7 +49,7 @@ yargs(hideBin(process.argv))
     (yargs) => {
       yargs.positional("id", { describe: "ID of the note to remove", type: "string" });
     },
-    (argv) => notesService.removeById(argv.id)
+    async (argv) => await notesService.removeById(argv.id)
   )
   .command(
     "remove <text>",
@@ -49,7 +57,7 @@ yargs(hideBin(process.argv))
     (yargs) => {
       yargs.positional("text", { describe: "Text of the note to remove", type: "string" });
     },
-    (argv) => notesService.removeByText(argv.text)
+    async (argv) => await notesService.removeByText(argv.text)
   )
   .help()
   .parse();

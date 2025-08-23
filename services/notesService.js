@@ -2,34 +2,36 @@ import { v4 as uuidv4 } from "uuid";
 import { format } from "date-fns";
 import chalk from "chalk";
 import figures from "figures";
-import { loadNotes, saveNotes } from "../helpers/fileHelpers.js";
 import * as ui from "../ui.js";
 
 export default class NotesService {
-  constructor(fileName = "notes.json") {
-    this.fileName = fileName;
+  constructor(storage) {
+    if (!storage) {
+      throw new Error("Storage instance is required");
+    }
+    this.storage = storage;
   }
 
-  getAllNotes() {
-    return loadNotes(this.fileName);
+  async getAllNotes() {
+    return await this.storage.load();
   }
 
-  save(notes) {
-    saveNotes(notes, this.fileName);
+  async save(notes) {
+    await this.storage.save(notes);
   }
 
-  list() {
+  async list() {
     const notes = this.getAllNotes();
     ui.printNotesTable(notes, "All Notes");
   }
 
-  findByText(query) {
+  async findByText(query) {
     const notes = this.getAllNotes();
     const results = notes.filter(n => n.text.toLowerCase().includes(query.toLowerCase()));
     ui.printNotesTable(results, `Search results for "${query}"`);
   }
 
-  findById(id) {
+  async findById(id) {
     const notes = this.getAllNotes();
     const note = notes.find(n => n.id === id);
     if (!note) {
@@ -39,7 +41,7 @@ export default class NotesService {
     }
   }
 
-  add(text) {
+  async add(text) {
     return ui.withSpinner(() => {
       const notes = this.getAllNotes();
       const newNote = {
@@ -53,7 +55,7 @@ export default class NotesService {
     });
   }
 
-  removeById(id) {
+  async removeById(id) {
     return ui.withSpinner(() => {
       const notes = this.getAllNotes();
       const noteToRemove = notes.find(n => n.id === id);
