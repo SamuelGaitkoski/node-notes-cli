@@ -21,14 +21,27 @@ A command-line tool to manage notes (add, list, remove) using only Node.js core 
 
 This project applies several software design principles:
 
-- **Single Responsibility Principle (SOLID):**  
-  Each file has one clear responsibility (`app.js` = CLI, `notesService.js` = note logic, `fileHelpers.js` = persistence).
+- **Single Responsibility Principle (SRP, SOLID):**  
+  Each file has one clear responsibility:
+  - `app.js` → CLI handling  
+  - `NotesService.js` → business logic for notes  
+  - `fileHelpers.js` → persistence
 
-- **Dependency Inversion Principle (SOLID):**  
+- **Open/Closed Principle (OCP, SOLID):**  
+  `NotesService` is open for extension but closed for modification. You can add new storage types (`FileStorage`, `MemoryStorage`, `DatabaseStorage`) without changing `NotesService` itself.
+
+- **Liskov Substitution Principle (LSP, SOLID):**  
+  Any class extending `BaseStorage` can replace another without breaking `NotesService`. For example, `MemoryStorage` or `DatabaseStorage` can be used interchangeably.
+
+- **Interface Segregation Principle (ISP, SOLID):**  
+  `BaseStorage` defines only the methods `load` and `save` that `NotesService` actually uses. Classes do not have to implement unnecessary methods.
+
+- **Dependency Inversion Principle (DIP, SOLID):**  
   `fileHelpers.js` accepts a filename parameter, making the storage mechanism flexible and not hardcoded.
+  `NotesService` depends on the `BaseStorage` abstraction, not a concrete implementation like `FileStorage` or `DatabaseStorage`. This allows easy swapping of storage mechanisms.
 
 - **Module Pattern:**  
-  `notesService` is a default export, exposing only the necessary API.
+  `NotesService` is a default export, exposing only the public API needed by the application.
 
 - **Clean Architecture mindset:**  
   Clear separation between:
