@@ -3,14 +3,19 @@
 A command-line tool to manage notes (add, list, remove) using only Node.js core modules.
 
 ## 🚀 Features
-- Add a new note
 - List all notes
-- Remove a note
-- Stores notes in a JSON file
+- Search notes  
+  - By text  
+  - By id  
+- Add a new note
+- Remove notes  
+  - By id  
+  - By text  
+- Store notes in a JSON file
 
 ## 🛠️ Technologies
 - [Node.js](https://nodejs.org/) (core runtime)
-  - Core modules: `fs`, `path`, `process`
+  - Core modules: `fs`, `path`, `process`, `url`
 
 ## 🏛️ Architecture & Principles
 
