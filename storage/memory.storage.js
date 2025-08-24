@@ -1,4 +1,4 @@
-import { BaseStorage } from "./BaseStorage";
+import { BaseStorage } from "./base.storage.js";
 
 export class MemoryStorage extends BaseStorage {
   constructor() {

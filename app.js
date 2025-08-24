@@ -1,7 +1,7 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import NotesService from "./services/NotesService.js";
-import { FileStorage } from "./services/FileStorage.js";
+import NotesService from "./services/notes.service.js";
+import { FileStorage } from "./storage/file.storage.js";
 
 const storage = new FileStorage("notes.json");
 

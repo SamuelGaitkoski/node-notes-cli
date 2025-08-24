@@ -1,4 +1,4 @@
-import { BaseStorage } from "./BaseStorage";
+import { BaseStorage } from "./base.storage.js";
 import { loadNotes, saveNotes } from "../helpers/fileHelpers.js";
 
 export class FileStorage extends BaseStorage {
